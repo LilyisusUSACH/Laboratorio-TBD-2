@@ -10,8 +10,10 @@ public class VoluntarioEntity {
         private String genero;
         private String email;
         private String telefono;
+        private double latitud;
+        private double longitud;
 
-        public VoluntarioEntity(Long id, Long userId, String nombre, int edad, String direccion, String genero, String email, String telefono) {
+        public VoluntarioEntity(Long id, Long userId, String nombre, int edad, String direccion, String genero, String email, String telefono, double latitud, double longitud) {
             this.id_voluntario = id;
             this.user_id = userId;
             this.nombre = nombre;
@@ -20,6 +22,8 @@ public class VoluntarioEntity {
             this.genero = genero;
             this.email = email;
             this.telefono = telefono;
+            this.latitud = latitud;
+            this.longitud = longitud;
         }
 
         public Long getUserId() {
@@ -84,6 +88,14 @@ public class VoluntarioEntity {
 
         public void setTelefono(String telefono) {
             this.telefono = telefono;
+        }
+
+        public double getLatitud() {
+            return latitud;
+        }
+
+        public void setLatitud(double latitud) {
+            this.latitud = latitud;
         }
 
 
