@@ -103,6 +103,16 @@ CREATE TABLE "eme_habilidad" (
                                  "id_habilidad" bigint
 );
 
+CREATE EXTENSION IF NOT EXISTS postgis;
+
+ALTER TABLE "emergencia"
+    ADD COLUMN "ubicacion" geography(Point, 4326);
+
+ALTER TABLE "voluntario"
+    ADD COLUMN "ubicacion" geography(Point, 4326);
+
+
+
 ALTER TABLE "ranking" ADD FOREIGN KEY ("id_voluntario") REFERENCES "voluntario" ("id_voluntario");
 
 ALTER TABLE "ranking" ADD FOREIGN KEY ("id_tarea") REFERENCES "tarea" ("id_tarea");
