@@ -1,0 +1,38 @@
+body {
+  min-height: 100vh;
+  background: linear-gradient(
+    113deg,
+    rgba(199, 50, 60, 0.95) 0%,
+    rgba(153, 0, 0, 1) 10%,
+    rgba(255, 255, 255, 1) 10%,
+    rgba(231, 242, 255, 1) 90%,
+    rgba(199, 50, 60, 1) 90%,
+    rgba(199, 50, 60, 1) 100%
+  );
+  transition:
+    color 0.5s,
+    background-color 0.5s;
+  line-height: 1.6;
+  font-family: 'Helvetica Neue', sans-serif;
+  font-size: 15px;
+  text-rendering: optimizeLegibility;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+body.login {
+  background: linear-gradient(
+    120deg,
+    rgba(199, 50, 60, 0.95) 0%,
+    rgba(153, 0, 0, 1) 25%,
+    rgba(199, 50, 60, 1) 25%,
+    rgba(187, 38, 51, 1) 75%,
+    rgba(199, 50, 60, 1) 75%,
+    rgba(199, 50, 60, 1) 100%
+  );
+}
+
+body,
+html {
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: touch;
+}
