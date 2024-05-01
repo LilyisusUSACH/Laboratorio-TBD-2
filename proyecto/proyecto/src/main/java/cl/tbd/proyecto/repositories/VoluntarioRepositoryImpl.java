@@ -85,18 +85,25 @@ public class VoluntarioRepositoryImpl implements VoluntarioRepository {
 
     @Override
     public VoluntarioEntity create(VoluntarioEntity voluntario, String actualUser) {
-        String sqlInsertQuery = "INSERT INTO voluntario (user_id, nombre, edad, direccion, genero, email, telefono,rut) " +
-                "VALUES(:user_id, :nombre, :edad, :direccion, :genero, :email, :telefono, :rut)";
-        try (Connection con = sql2o.open()){
+        String sqlInsertQuery = "INSERT INTO voluntario (user_id, nombre, edad, direccion, genero, email, telefono, rut, ubicacion) " +
+                "VALUES(:user_id, :nombre, :edad, :direccion, :genero, :email, :telefono, :rut, ST_SetSRID(ST_MakePoint(:longitud, :latitud), 4326))";
+        try (Connection con = sql2o.open()) {
             usuarioRepository.setUsername(actualUser, con);
             Long insertedId = con.createQuery(sqlInsertQuery, true)
                     .addParameter("user_id", voluntario.getUserId())
-                    .bind(voluntario)
+                    .addParameter("nombre", voluntario.getNombre())
+                    .addParameter("edad", voluntario.getEdad())
+                    .addParameter("direccion", voluntario.getDireccion())
+                    .addParameter("genero", voluntario.getGenero())
+                    .addParameter("email", voluntario.getEmail())
+                    .addParameter("telefono", voluntario.getTelefono())
+                    .addParameter("rut", voluntario.getRut())
+                    .addParameter("latitud", voluntario.getLatitud())
+                    .addParameter("longitud", voluntario.getLongitud())
                     .executeUpdate()
                     .getKey(Long.class);
-            voluntario.setId(insertedId); //Actualizar el id del voluntario
+            voluntario.setId(insertedId);
             return voluntario;
-
         } catch (Exception e) {
             System.out.println("Error: " + e);
             return null;
@@ -104,10 +111,11 @@ public class VoluntarioRepositoryImpl implements VoluntarioRepository {
     }
 
 
+
     @Override
     public VoluntarioEntity update(VoluntarioEntity voluntario, String actualUser) {
         final String sqlUpdateQuery = "UPDATE voluntario SET user_id = :user_id, nombre = :nombre, edad = :edad, " +
-                "direccion = :direccion, genero = :genero, email = :email, telefono = :telefono WHERE id_voluntario = :id_voluntario";
+                "direccion = :direccion, genero = :genero, email = :email, telefono = :telefono, ubicacion = ST_SetSRID(ST_MakePoint(:longitud, :latitud), 4326) WHERE id_voluntario = :id_voluntario";
         try (Connection con = sql2o.open()) {
             usuarioRepository.setUsername(actualUser, con);
             con.createQuery(sqlUpdateQuery)
@@ -117,9 +125,10 @@ public class VoluntarioRepositoryImpl implements VoluntarioRepository {
             return voluntario;
         } catch (Exception e) {
             System.out.println("Error al actualizar el voluntario: " + e.getMessage());
+            return null;
         }
-        return null;
     }
+
 
     @Override
     public Boolean delete(Long id, String actualUser) {

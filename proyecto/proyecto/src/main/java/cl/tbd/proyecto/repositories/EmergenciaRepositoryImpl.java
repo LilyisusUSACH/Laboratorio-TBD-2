@@ -93,35 +93,50 @@ public class EmergenciaRepositoryImpl implements EmergenciaRepository{
 
     @Override
     public EmergenciaEntity create(EmergenciaEntity emergencia, String actualUser) {
-        String sqlInsertQuery =  "INSERT INTO emergencia(nombre, descripcion, fecha_inicio, fecha_fin, id_institucion, id_estado) VALUES( :nombre, :descripcion, :fecha_inicio, :fecha_fin, :id_institucion, :id_estado)";
-        try(Connection connection = sql2o.open()){
+        String sqlInsertQuery = "INSERT INTO emergencia(nombre, descripcion, fecha_inicio, fecha_fin, id_institucion, id_estado, ubicacion) VALUES(:nombre, :descripcion, :fecha_inicio, :fecha_fin, :id_institucion, :id_estado, ST_SetSRID(ST_MakePoint(:longitud, :latitud), 4326))";
+        try (Connection connection = sql2o.open()) {
             usuarioRepository.setUsername(actualUser, connection);
-            Long id = connection.createQuery(sqlInsertQuery).bind(emergencia).executeUpdate().getKey(Long.class);
-            return findById(id); // TODO: revisar si devolver entidad o key, o nada
-        }catch (Exception e) {
+            Long id = connection.createQuery(sqlInsertQuery)
+                    .addParameter("nombre", emergencia.getNombre())
+                    .addParameter("descripcion", emergencia.getDescripcion())
+                    .addParameter("fecha_inicio", emergencia.getFecha_inicio())
+                    .addParameter("fecha_fin", emergencia.getFecha_fin())
+                    .addParameter("id_institucion", emergencia.getId_institucion())
+                    .addParameter("id_estado", emergencia.getId_estado())
+                    .addParameter("latitud", emergencia.getLatitud())
+                    .addParameter("longitud", emergencia.getLongitud())
+                    .executeUpdate()
+                    .getKey(Long.class);
+            return findById(id);
+        } catch (Exception e) {
             System.out.println("Error: " + e);
             return null;
         }
     }
 
 
+
     @Override
     public EmergenciaEntity update(EmergenciaEntity emergencia, String actualUser) {
-        String sqlUpdateQuery = "UPDATE emergencia SET nombre = :nombre, descripcion = :descripcion, fecha_inicio = :fechaInicio, fecha_fin = :fechaFin WHERE id_emergencia = :id_emergencia";
+        String sqlUpdateQuery = "UPDATE emergencia SET nombre = :nombre, descripcion = :descripcion, fecha_inicio = :fechaInicio, fecha_fin = :fechaFin, ubicacion = ST_SetSRID(ST_MakePoint(:longitud, :latitud), 4326) WHERE id_emergencia = :id_emergencia";
         try (Connection con = sql2o.open()) {
             usuarioRepository.setUsername(actualUser, con);
             con.createQuery(sqlUpdateQuery)
                     .addParameter("nombre", emergencia.getNombre())
                     .addParameter("descripcion", emergencia.getDescripcion())
-                    .addParameter("fechaInicio", emergencia.getFecha_inicio())  // Asegúrate que los getters están correctamente definidos
-                    .addParameter("fechaFin", emergencia.getFecha_fin())        // y se llaman igual que en la clase `EmergenciaEntity`.
-                    .addParameter("id_emergencia", emergencia.getId())  // Cambia 'id' por 'id_emergencia' para que coincida con el SQL.
+                    .addParameter("fechaInicio", emergencia.getFecha_inicio())
+                    .addParameter("fechaFin", emergencia.getFecha_fin())
+                    .addParameter("latitud", emergencia.getLatitud())
+                    .addParameter("longitud", emergencia.getLongitud())
+                    .addParameter("id_emergencia", emergencia.getId())
                     .executeUpdate();
+            return findById(emergencia.getId()); // Retorna la emergencia actualizada para confirmación o uso posterior
         } catch (Exception e) {
             System.out.println("Error al actualizar la emergencia: " + e.getMessage());
+            return null;
         }
-        return null;
     }
+
 
 
     @Override

@@ -98,6 +98,13 @@ public class VoluntarioEntity {
             this.latitud = latitud;
         }
 
+        public double getLongitud() {
+            return longitud;
+        }
+
+        public void setLongitud(double longitud) {
+            this.longitud = longitud;
+        }
 
     public Long getUser_id() {
         return user_id;
