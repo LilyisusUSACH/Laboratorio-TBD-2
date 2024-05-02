@@ -9,6 +9,7 @@ Manual de usuario.
 <ul>
 <li>PostgreSQL (versión 11+)</li>
 <li>pgAdmin 4</li>
+<li>Postgis</li>
 </ul>
 <hr>
 <h2>Para el backend (desarrollado como una API RESTful en Spring), se debe instalar lo siguiente:</h2>
