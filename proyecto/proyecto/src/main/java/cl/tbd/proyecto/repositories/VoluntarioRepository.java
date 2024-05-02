@@ -14,6 +14,7 @@ public interface VoluntarioRepository {
 
     VoluntarioEntity findByRut(String rut);
 
+     List<VoluntarioEntity> findVoluntariosByEmergencia(Long id_emergencia);
 
     VoluntarioEntity create(VoluntarioEntity voluntario, String actualUser);
 

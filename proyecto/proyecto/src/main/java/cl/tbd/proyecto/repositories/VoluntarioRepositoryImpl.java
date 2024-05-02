@@ -135,4 +135,20 @@ public class VoluntarioRepositoryImpl implements VoluntarioRepository {
         String sqlDeleteQuery = "DELETE FROM voluntario WHERE id_voluntario = :id";
         return deleteSql(id, actualUser, sqlDeleteQuery, sql2o, usuarioRepository);
     }
+
+    public List<VoluntarioEntity> findVoluntariosByEmergencia(Long id_emergencia) {
+        String sqlQuery = "SELECT v.*, ST_AsText(v.ubicacion) as ubicacion_text FROM voluntario v " +
+                "JOIN ranking r ON v.id_voluntario = r.id_voluntario " +
+                "JOIN tarea t ON r.id_tarea = t.id_tarea " +
+                "WHERE t.id_emergencia = :id_emergencia";
+        try (Connection con = sql2o.open()) {
+            return con.createQuery(sqlQuery)
+                    .addParameter("id_emergencia", id_emergencia)
+                    .executeAndFetch(VoluntarioEntity.class);
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+            return null;
+        }
+    }
+
 }
