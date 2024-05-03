@@ -1,6 +1,8 @@
 package cl.tbd.proyecto.repositories;
 import cl.tbd.proyecto.entities.EmergenciaEntity;
 import cl.tbd.proyecto.entities.VoluntarioEntity;
+import cl.tbd.proyecto.models.geo.GeoVolunteer;
+
 import java.util.List;
 public interface VoluntarioRepository {
 
@@ -13,8 +15,6 @@ public interface VoluntarioRepository {
     VoluntarioEntity findById(Long id);
 
     VoluntarioEntity findByRut(String rut);
-
-     List<VoluntarioEntity> findVoluntariosByEmergencia(Long id_emergencia);
 
     VoluntarioEntity create(VoluntarioEntity voluntario, String actualUser);
 
