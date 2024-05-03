@@ -13,19 +13,22 @@ public class GeoVolunteer {
     private String email;
     private String telefono;
 
-    private String geoText;
+    private boolean participa;
 
-    private List<Double> coordenadas;
-
-    public GeoVolunteer(Long id, String rut, String nombre, String direccion, String email, String telefono, String geoText) {
+    public GeoVolunteer(Long id, String rut, String nombre, String direccion, String email, String telefono, boolean participa, String geoText) {
         this.id = id;
         this.rut = rut;
         this.nombre = nombre;
         this.direccion = direccion;
         this.email = email;
         this.telefono = telefono;
+        this.participa = participa;
         this.geoText = geoText;
     }
+
+    private String geoText;
+
+    private List<Double> coordenadas;
 
     public Long getId() {
         return id;
@@ -87,7 +90,16 @@ public class GeoVolunteer {
         return coordenadas;
     }
 
+
     public void setCoordenadas(List<Double> coordenadas) {
         this.coordenadas = coordenadas;
+    }
+
+    public boolean isParticipa() {
+        return participa;
+    }
+
+    public void setParticipa(boolean participa) {
+        this.participa = participa;
     }
 }
