@@ -13,6 +13,8 @@ DROP TABLE IF EXISTS "voluntario";
 DROP TABLE IF EXISTS "usuarios_roles";
 DROP TABLE IF EXISTS "usuarios";
 DROP TABLE IF EXISTS "roles";
+CREATE EXTENSION IF NOT EXISTS postgis;
+
 
 CREATE TABLE "roles" (
                          "id" SERIAL PRIMARY KEY,
@@ -36,7 +38,8 @@ CREATE TABLE "voluntario" (
                               "genero" varchar,
                               "email" varchar,
                               "telefono" varchar,
-                               "rut" varchar
+                               "rut" varchar,
+                              "ubicacion" geography(POINT, 4326)
 );
 
 CREATE TABLE "vol_habilidad" (
@@ -94,7 +97,8 @@ CREATE TABLE "emergencia" (
                               "fecha_inicio" Date,
                               "fecha_fin" Date,
                               "id_institucion" bigint,
-                              "id_estado" bigint
+                              "id_estado" bigint,
+                              "ubicacion" geography(POINT, 4326)
 );
 
 CREATE TABLE "eme_habilidad" (
@@ -102,14 +106,6 @@ CREATE TABLE "eme_habilidad" (
                                  "id_emergencia" bigint,
                                  "id_habilidad" bigint
 );
-
-CREATE EXTENSION IF NOT EXISTS postgis;
-
-ALTER TABLE "emergencia"
-    ADD COLUMN "ubicacion" geography(Point, 4326);
-
-ALTER TABLE "voluntario"
-    ADD COLUMN "ubicacion" geography(Point, 4326);
 
 
 
