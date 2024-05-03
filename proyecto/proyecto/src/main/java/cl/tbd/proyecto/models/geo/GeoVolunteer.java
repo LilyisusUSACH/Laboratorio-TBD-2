@@ -5,7 +5,7 @@ import ch.qos.logback.core.joran.sanity.Pair;
 import java.util.List;
 
 public class GeoVolunteer {
-    private Long id;
+    private Long id_voluntario;
     private String rut;
     private String nombre;
     private String direccion;
@@ -15,8 +15,8 @@ public class GeoVolunteer {
 
     private boolean participa;
 
-    public GeoVolunteer(Long id, String rut, String nombre, String direccion, String email, String telefono, boolean participa, String geoText) {
-        this.id = id;
+    public GeoVolunteer(Long id_voluntario, String rut, String nombre, String direccion, String email, String telefono, boolean participa, String geoText) {
+        this.id_voluntario = id_voluntario;
         this.rut = rut;
         this.nombre = nombre;
         this.direccion = direccion;
@@ -30,12 +30,12 @@ public class GeoVolunteer {
 
     private List<Double> coordenadas;
 
-    public Long getId() {
-        return id;
+    public Long getId_voluntario() {
+        return id_voluntario;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId_voluntario(Long id_voluntario) {
+        this.id_voluntario = id_voluntario;
     }
 
     public String getRut() {

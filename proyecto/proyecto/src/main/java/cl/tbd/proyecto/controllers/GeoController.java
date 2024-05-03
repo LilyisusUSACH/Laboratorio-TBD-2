@@ -27,15 +27,15 @@ public class GeoController {
 
     @GetMapping("/volByEme")
     public ResponseEntity<?> getAllEstados(
-            @RequestParam(value = "id_emergencia", required = false) Long id_emergencia,
+            @RequestParam(value = "id_emergencia") Long id_emergencia,
             @RequestHeader(value = "Authorization", required = false) String token
     ){
         List<GeoVolunteer> geos = geoServices.findAllVolunteersByEmergency(id_emergencia);
-        GeoMulti geoMulti = new GeoMulti("FEATURE COLLECTION", new ArrayList<>());
+        GeoMulti geoMulti = new GeoMulti("FeatureCollection", new ArrayList<>());
         geos.forEach( geoVolunteer -> {
-            Geometry geometry = new Geometry("POINT", geoVolunteer.getCoordenadas());
-            GeoFeature geoFeature = new GeoFeature("FEATURE",geometry, Map.of(
-                    "id",geoVolunteer.getId(),
+            Geometry geometry = new Geometry("Point", geoVolunteer.getCoordenadas());
+            GeoFeature geoFeature = new GeoFeature("Feature",geometry, Map.of(
+                    "id",geoVolunteer.getId_voluntario(),
                     "rut",geoVolunteer.getRut(),
                     "nombre",geoVolunteer.getNombre(),
                     "direccion",geoVolunteer.getDireccion(),

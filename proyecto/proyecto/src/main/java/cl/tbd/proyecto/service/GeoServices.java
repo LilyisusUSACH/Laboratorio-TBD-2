@@ -27,9 +27,10 @@ public class GeoServices {
 
     private List<Double> convertGeometryTextToList(String geometryText) {
         // Supongamos que el texto tiene el formato "POINT (longitude latitude)"
-        String[] parts = geometryText.replaceAll("[()]", "").split(" ");
-        double longitude = Double.parseDouble(parts[1]);
-        double latitude = Double.parseDouble(parts[2]);
+        String[] parts = geometryText.substring(5).replaceAll("[()]", "").split(" ");
+
+        double longitude = Double.parseDouble(parts[0]);
+        double latitude = Double.parseDouble(parts[1]);
 
         return new ArrayList<>(Arrays.asList(longitude,latitude));
     }
