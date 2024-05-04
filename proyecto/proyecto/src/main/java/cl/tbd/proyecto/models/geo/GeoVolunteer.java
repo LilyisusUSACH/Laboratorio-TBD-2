@@ -13,7 +13,6 @@ public class GeoVolunteer {
     private String email;
     private String telefono;
 
-    private boolean participa;
 
     public GeoVolunteer(Long id_voluntario, String rut, String nombre, String direccion, String email, String telefono, boolean participa, String geoText) {
         this.id_voluntario = id_voluntario;
@@ -22,7 +21,6 @@ public class GeoVolunteer {
         this.direccion = direccion;
         this.email = email;
         this.telefono = telefono;
-        this.participa = participa;
         this.geoText = geoText;
     }
 
@@ -95,11 +93,4 @@ public class GeoVolunteer {
         this.coordenadas = coordenadas;
     }
 
-    public boolean isParticipa() {
-        return participa;
-    }
-
-    public void setParticipa(boolean participa) {
-        this.participa = participa;
-    }
 }
