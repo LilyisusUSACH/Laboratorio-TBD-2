@@ -15,7 +15,7 @@ public class GeoRepositoryImpl implements GeoRepository{
     private Sql2o sql2o;
 
     public List<GeoVolunteer> findVoluntariosByEmergencia(Long id_emergencia) {
-        String sqlQuery = "SELECT v.id_voluntario, v.rut, v.nombre, v.direccion, v.email, v.telefono, ST_AsText(v.ubicacion) as geoText FROM voluntario v " +
+        String sqlQuery = "SELECT DISTINCT v.id_voluntario, v.rut, v.nombre, v.direccion, v.email, v.telefono, ST_AsText(v.ubicacion) as geoText FROM voluntario v " +
                 "INNER JOIN ranking r ON v.id_voluntario = r.id_voluntario " +
                 "INNER JOIN tarea t ON r.id_tarea = t.id_tarea " +
                 "WHERE t.id_emergencia = :id_emergencia";
