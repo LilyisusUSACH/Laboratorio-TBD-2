@@ -22,7 +22,7 @@ public class EmergenciaRepositoryImpl implements EmergenciaRepository{
     @Override
     public List<EmergenciaEntity> findAll() {
         try (Connection connection = sql2o.open()) {
-            String query = "SELECT * FROM emergencia ORDER BY id_estado DESC, nombre";
+            String query = "SELECT id_emergencia, nombre, descripcion, fecha_inicio, fecha_fin, id_institucion, id_estado, ST_X(ubicacion::geometry) AS longitud, ST_Y(ubicacion::geometry) AS latitud FROM emergencia ORDER BY id_estado DESC, nombre";
             return connection.createQuery(query).executeAndFetch(EmergenciaEntity.class);
         }
     }
@@ -56,7 +56,7 @@ public class EmergenciaRepositoryImpl implements EmergenciaRepository{
 
     @Override
     public List<EmergenciaEntity> findAllUncompleted(int size, int page) {
-        String sqlQuery = "SELECT e.* FROM emergencia e " +
+        String sqlQuery = "SELECT e.id_emergencia, e.nombre, e.descripcion, e.fecha_inicio, e.fecha_fin, e.id_institucion, e.id_estado, ST_X(ubicacion::geometry) AS longitud, ST_Y(ubicacion::geometry) AS latitud FROM emergencia e " +
                 "INNER JOIN estado ee ON e.id_estado = ee.id_estado " +
                 "WHERE ee.descripcion = 'uncompleted' " +
                 "LIMIT :size OFFSET :offset";
@@ -79,7 +79,7 @@ public class EmergenciaRepositoryImpl implements EmergenciaRepository{
 
     @Override
     public EmergenciaEntity findById(Long id_emergencia) {
-        String sqlQuery = "SELECT * FROM emergencia WHERE id_emergencia = :id_emergencia";
+        String sqlQuery = "SELECT id_emergencia, nombre, descripcion, fecha_inicio, fecha_fin, id_institucion, id_estado, ST_X(ubicacion::geometry) AS longitud, ST_Y(ubicacion::geometry) AS latitud FROM emergencia WHERE id_emergencia = :id_emergencia";
         try (Connection con = sql2o.open()) {
             return con.createQuery(sqlQuery)
                     .addParameter("id_emergencia", id_emergencia)
