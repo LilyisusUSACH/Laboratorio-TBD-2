@@ -13,6 +13,7 @@ public class EmergenciaEntity {
     private Long id_estado;
     private double latitud;
     private double longitud;
+
     public EmergenciaEntity(Long id, String nombre, String descripcion, Date fecha_inicio, Date fecha_fin, Long id_institucion, Long id_estado, double latitud, double longitud) {
         this.id_emergencia = id;
         this.nombre = nombre;

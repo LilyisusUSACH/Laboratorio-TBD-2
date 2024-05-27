@@ -40,8 +40,8 @@ const newVoluntario = ref({
   telefono: '',
   rut: '',
   userId: 0,
-  latitude:null,
-  longitude:null
+  latitud:null,
+  longitud:null
 })
 
 const clearError = () => {
@@ -68,10 +68,6 @@ const handleRegister = () => {
       newVoluntario.value.userId = response.userId
       newVoluntario.value.rut = register.value.username
       newVoluntario.value.email = register.value.email
-      newVoluntario.value.latitude = locatedAt.coords.latitude
-      newVoluntario.value.longitude = locatedAt.coords.longitude
-      console.log(newVoluntario.value.long)
-      console.log(newVoluntario)
       voluntariosService
         .postVoluntario(newVoluntario.value)
         .then((responseVol) => {
@@ -112,16 +108,13 @@ const changeForm = (event) => {
 }
 watch(locatedAt, (newValue) => {
   if (newValue) {
-    handleRegister()
+    newVoluntario.value.latitud = coords.value.latitude
+    newVoluntario.value.longitud = coords.value.longitude
   }
 })
 </script>
 
 <template>
-    <UseGeolocation v-slot="{ coords: { latitude, longitude } }">
-    Latitude: {{ latitude }}
-    Longitude: {{ longitude }}
-  </UseGeolocation>
   <transition name="bounce">
     <div
       v-if="error"
