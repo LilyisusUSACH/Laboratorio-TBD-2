@@ -10,6 +10,8 @@ public class VoluntarioEntity {
         private String genero;
         private String email;
         private String telefono;
+       //TODO: revisar esto, no esta como tal en el loadData de la base de datos. como no es JPA quiza no haya atado.
+        //TODO: Eso si, no es posible al parecer efectuar una consulta directamente con postman, ev cambio a formato de la BD.
         private double latitud;
         private double longitud;
 

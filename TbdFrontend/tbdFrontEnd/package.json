@@ -12,6 +12,8 @@
   },
   "dependencies": {
     "@vueform/multiselect": "^2.6.7",
+    "@vueuse/components": "^10.9.0",
+    "@vueuse/core": "^10.9.0",
     "bootstrap": "^5.3.3",
     "leaflet": "^1.9.4",
     "vue": "^3.4.21",

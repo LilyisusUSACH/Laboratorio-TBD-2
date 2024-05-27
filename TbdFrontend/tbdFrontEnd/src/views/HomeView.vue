@@ -1,5 +1,7 @@
 <script setup>
 import Paper from '@/components/Paper.vue'
+
+
 fetch('https://api.ipify.org?format=json')
   .then(response => response.json())
   .then(data => {

@@ -3,7 +3,10 @@ import router from '@/router'
 import authService from '@/services/auth.service'
 import voluntariosService from '@/services/voluntarios.service'
 import Multiselect from '@vueform/multiselect'
-import { onBeforeMount, onBeforeUnmount, ref } from 'vue'
+import { onBeforeMount, onBeforeUnmount, ref ,watch} from 'vue'
+import { useGeolocation } from '@vueuse/core'
+import { UseGeolocation } from '@vueuse/components'
+const { coords, locatedAt, errorr, resume, pause } = useGeolocation()
 onBeforeMount(() => {
   localStorage.removeItem('token')
   document.body.classList = 'login'
@@ -36,7 +39,9 @@ const newVoluntario = ref({
   email: '',
   telefono: '',
   rut: '',
-  userId: 0
+  userId: 0,
+  latitude:null,
+  longitude:null
 })
 
 const clearError = () => {
@@ -63,6 +68,9 @@ const handleRegister = () => {
       newVoluntario.value.userId = response.userId
       newVoluntario.value.rut = register.value.username
       newVoluntario.value.email = register.value.email
+      newVoluntario.value.latitude = locatedAt.coords.latitude
+      newVoluntario.value.longitude = locatedAt.coords.longitude
+      console.log(newVoluntario.value.long)
       console.log(newVoluntario)
       voluntariosService
         .postVoluntario(newVoluntario.value)
@@ -102,9 +110,18 @@ const changeForm = (event) => {
   event.preventDefault()
   logging.value = !logging.value
 }
+watch(locatedAt, (newValue) => {
+  if (newValue) {
+    handleRegister()
+  }
+})
 </script>
 
 <template>
+    <UseGeolocation v-slot="{ coords: { latitude, longitude } }">
+    Latitude: {{ latitude }}
+    Longitude: {{ longitude }}
+  </UseGeolocation>
   <transition name="bounce">
     <div
       v-if="error"
