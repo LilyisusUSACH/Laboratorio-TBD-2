@@ -1,6 +1,6 @@
 Manual de usuario.
 
--- Este documento proporciona las instrucciones necesarias para la instalación y el uso de las tecnologías requeridas para ejecutar la aplicación de la entrega 1 del laboratorio.
+-- Este documento proporciona las instrucciones necesarias para la instalación y el uso de las tecnologías requeridas para ejecutar la aplicación de la entrega 2 del laboratorio.
 
 <h1>Requisitos del Sistema:</h1>
 
@@ -9,7 +9,7 @@ Manual de usuario.
 <ul>
 <li>PostgreSQL (versión 11+)</li>
 <li>pgAdmin 4</li>
-<li>Postgis</li>
+<li>Postgis (Se puede instalar con stack builder)</li>
 </ul>
 <hr>
 <h2>Para el backend (desarrollado como una API RESTful en Spring), se debe instalar lo siguiente:</h2>
@@ -28,7 +28,7 @@ Pasos para Hacer Funcionar la Aplicación:
 <ol>
 <li>Configuración de la Base de Datos:</li>
 <ol>
-<li> Abrir pgAdmin4 y crear una nueva base de datos llamada "lab1TBD". ( o realizarlo a traves de la terminal )</li>
+<li> Abrir pgAdmin4 y crear una nueva base de datos llamada "lab2TBD". ( o realizarlo a traves de la terminal )</li>
 <li> Abrir "query tools" y cargar el script "dbCreate.sql" ubicado en "./db" para crear las tablas necesarias.</li>
 <li> Luego, cargar el script <span>"loadData.sql"</span> para poblar las tablas con datos.</li>
   <li> Posteriormente, para cumplir con las funcionalidades se requiere cargar mas archivos:</li>

@@ -25,7 +25,7 @@ public class VoluntarioRepositoryImpl implements VoluntarioRepository {
     @Override
     public List<VoluntarioEntity> findAll() {
         try (Connection connection = sql2o.open()) {
-            String query = "SELECT * FROM voluntario";
+            String query = "SELECT id_voluntario, user_id, nombre, edad, direccion, genero, email, telefono, rut, ST_X(ubicacion::geometry) AS longitud, ST_Y(ubicacion::geometry) AS latitud FROM voluntario";
             return connection.createQuery(query).executeAndFetch(VoluntarioEntity.class);
         }
     }
@@ -60,7 +60,7 @@ public class VoluntarioRepositoryImpl implements VoluntarioRepository {
 
     @Override
     public VoluntarioEntity findById(Long id_voluntario) {
-        String sqlQuery = "SELECT * FROM voluntario WHERE id_voluntario = :id_voluntario";
+        String sqlQuery = "SELECT id_voluntario, user_id, nombre, edad, direccion, genero, email, telefono, rut, ST_X(ubicacion::geometry) AS longitud, ST_Y(ubicacion::geometry) AS latitud FROM voluntario v WHERE id_voluntario = :id_voluntario";
         try (Connection con = sql2o.open()) {
             return con.createQuery(sqlQuery)
                     .addParameter("id_voluntario", id_voluntario)
@@ -73,7 +73,7 @@ public class VoluntarioRepositoryImpl implements VoluntarioRepository {
 
     @Override
     public VoluntarioEntity findByRut(String rut) {
-        String sqlQuery = "SELECT * FROM voluntario WHERE rut = :rut";
+        String sqlQuery = "SELECT id_voluntario, user_id, nombre, edad, direccion, genero, email, telefono, rut, ST_X(ubicacion::geometry) AS longitud, ST_Y(ubicacion::geometry) AS latitud FROM voluntario WHERE rut = :rut";
         try (Connection con = sql2o.open()) {
             return con.createQuery(sqlQuery)
                     .addParameter("rut", rut)
